@@ -1,0 +1,18 @@
+Session Express
+
+	https://github.com/expressjs/session
+
+	This session manager is kept in the server side. 
+	The default server-side session storage is the the MemoryStorage, however it must be avoid in production due to memory leak. 
+	In production environment you must configure a Compatible Session Storage. As we have used mongo, the most known is the 
+	connect-mongo (https://www.npmjs.com/package/connect-mongo).
+
+
+	Install
+		
+		$ npm install --save express-session
+
+	Configuration
+
+		The configuration could be found at ../services/express-session-service-config.js
+	

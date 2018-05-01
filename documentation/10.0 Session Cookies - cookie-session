@@ -4,6 +4,11 @@ A Session Cookie will help to keep us authenticated into the Application. So you
 
 To do that, we will be using the Cookie-session library. 
 
+OBS.: 
+	The cookie-session is a simple cookie manager used for lightweight apps and development.
+	Cookie-session keeps your cookies in the browser and must be avoid if you must keep complex data into the cookies. 
+	For a complex session manager, please, take a look at '10.1 Session Cookies - express-session'. 
+
 https://www.npmjs.com/package/cookie-session
 
 With this library you can wire up the use of the Session Cookies into your app (into the express), so after you already have authenticated, through any authentication mode, this middleware will intercept the authentication callback and inject its data into your application cookies. 
