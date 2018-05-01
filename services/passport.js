@@ -1,10 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const mongoose = require('mongoose');
 const keys = require('../config/keys.js');
-
-// it gives access to Mongoose Model Class Users
-const User = mongoose.model('users');
+const users = require('../app/controllers/users.server.controller');
 
 /**
  * Configuring passport to treat the Cookie serialization and 
@@ -21,10 +18,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id)
-        .then(user => {
-            done(null, user);
-        });
+    users.configDeserializeUser(id, done);
 });
 
 passport.use(
@@ -40,30 +34,8 @@ passport.use(
              * This is the callback function called after 
              * Google have validated with the user through 
              * OAuth.
-             * 
-             * DONE - Passport's callback
-             *  Take a look that, after retrieving the user 
-             *  from the datasource, or after creating it,
-             *  we are calling the function DONE. 
-             * 
-             *  Here, DONE is a Passport's Callback function
-             *  used to tell Passport that our callback is 
-             *  finished successfully. 
-             * 
-             *  Take a look that we are sending null as the first 
-             *  argument (the error first argument) and the created 
-             *  user or the retrieved used, if it is the case.
              */
-            User.findOne({ googleId : profile.id })
-                .then((existingUser) => {
-                    if (existingUser) {
-                        done(null, existingUser);
-                    } else {
-                        new User({ googleId : profile.id })
-                            .save()
-                            .then(user => done(null, user));
-                    }
-                });
+            users.saveOAuthUserProfile(profile, done);
         }
     )
 );
