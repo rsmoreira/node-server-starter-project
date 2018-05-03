@@ -14,5 +14,5 @@ Session Express
 
 	Configuration
 
-		The configuration could be found at ../services/express-session-service-config.js
+		The configuration could be found at ../services/express-session-config.js
 	

@@ -1,6 +1,6 @@
 const parseurl = require('parseurl');
 const session = require('express-session');
-const keys = require('../config/keys');
+const keys = require('./keys/keys');
 
 module.exports = app => {
     

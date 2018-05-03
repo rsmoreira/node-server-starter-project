@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const keys = require('./config/keys');
+const keys = require('./config/keys/keys');
 const session = require('express-session')
 const parseurl = require('parseurl');
 const passport = require('passport');
@@ -9,14 +9,14 @@ const passport = require('passport');
  * in other JS files
  */
 require('./models/User');
-require('./services/passport');
+require('./config/passport');
 
 
 mongoose.connect(keys.mongoURI);
 
 const app = express();
 
-require('./services/express-session-service-config')(app);
+require('./config/express-session-config')(app);
 
 app.use(passport.initialize());
 app.use(passport.session());
