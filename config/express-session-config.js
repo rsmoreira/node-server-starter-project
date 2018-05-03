@@ -1,5 +1,8 @@
 const parseurl = require('parseurl');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
+
 const keys = require('./keys/keys');
 
 module.exports = app => {
@@ -12,7 +15,8 @@ module.exports = app => {
             saveUninitialized: true,
             cookie: {
                 maxAge: 30 * 24 * 60 * 60 * 1000
-            }
+            },
+            store: new MongoStore({ mongooseConnection: mongoose.connection })
         };
     
     // configure secure for production environment
@@ -23,7 +27,7 @@ module.exports = app => {
 
     app.use(session(sess));
 
-    // count views function
+    // count views function - totally not necessary
     app.use(function (req, res, next){
         if (!req.session.views) {
             req.session.views = {}
