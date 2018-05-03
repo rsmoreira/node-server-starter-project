@@ -35,8 +35,22 @@ passport.use(
              * Google have validated with the user through 
              * OAuth.
              */
-            
-            users.saveOAuthUserProfile(profile, done);
+            var providerData = profile._json;
+            providerData.accessToken = accessToken;
+            providerData.refreshToken = refreshToken;
+
+            var providerUserProfile = {
+                firstName: profile.name.givenName,
+				lastName: profile.name.familyName,
+				displayName: profile.displayName,
+				email: profile.emails[0].value,
+				username: profile.username,
+                provider: 'google',
+				providerIdentifierField: 'id',
+                providerData: providerData
+            }
+
+            users.saveOAuthUserProfile(providerUserProfile, done);
         }
     )
 );

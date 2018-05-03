@@ -22,12 +22,28 @@ exports.configDeserializeUser = (id, done) => {
  *  after the User has been retrieved or created on the Database. 
  */
 exports.saveOAuthUserProfile = (providerUserProfile, done) => {
-    User.findOne({ googleId : providerUserProfile.id })
+    User.findOne({ googleId : providerUserProfile.providerData.id })
         .then((existingUser) => {
             if (existingUser) {
                 done(null, existingUser);
             } else {
-                new User({ googleId : providerUserProfile.id })
+
+                var providerUserName = providerUserProfile.username || 
+                                        ((providerUserProfile.email) ?  
+                                            providerUserProfile.email.split('@')[0] : '');
+
+                new User({ 
+                
+                    googleId : providerUserProfile.providerData.id,
+                    firstName: providerUserProfile.firstName,
+                    lastName: providerUserProfile.lastName,
+                    username: providerUserName,
+                    displayName: providerUserProfile.displayName,
+                    email: providerUserProfile.email,
+                    provider: providerUserProfile.provider,
+                    providerData: providerUserProfile.providerData 
+                
+                })
                     .save()
                     .then(user => done(null, user));
             }
