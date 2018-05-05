@@ -16,7 +16,7 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
-require('./config/express-session-config')(app);
+require('./config/express-session')(app);
 
 app.use(passport.initialize());
 app.use(passport.session());

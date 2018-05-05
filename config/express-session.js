@@ -13,10 +13,15 @@ module.exports = app => {
             secret: keys.cookieKey,
             resave: false,
             saveUninitialized: true,
+            name: "id",
             cookie: {
-                maxAge: 30 * 24 * 60 * 60 * 1000
+                maxAge: 60 * 60 * 1000,
+                path: "/"
             },
-            store: new MongoStore({ mongooseConnection: mongoose.connection })
+            store: new MongoStore({ 
+                mongooseConnection: mongoose.connection,
+                ttl: (8 * 60 * 60)
+            })
         };
     
     // configure secure for production environment
