@@ -16,7 +16,8 @@ module.exports = app => {
             name: "id",
             cookie: {
                 maxAge: 60 * 60 * 1000,
-                path: "/"
+                path: "/",
+                httpOnly:true
             },
             store: new MongoStore({ 
                 mongooseConnection: mongoose.connection,
