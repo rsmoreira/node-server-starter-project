@@ -4,6 +4,7 @@ const keys = require('./config/keys/keys');
 const session = require('express-session')
 const parseurl = require('parseurl');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 /**
  * Always load firstly the models that will be used
  * in other JS files
@@ -16,6 +17,7 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
+app.use(bodyParser.json());
 require('./config/express-session')(app);
 
 app.use(passport.initialize());

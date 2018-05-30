@@ -1,16 +1,17 @@
 
 module.exports = app => {
 
-    app.get('/foo', function (req, res, next) {
+    app.post('/test/body-parser', (req, res) => {
+        console.log(req.body);
+        res.status(200).send(req.body);
+    });
+    
+    app.get('/test/foo', function (req, res, next) {
         res.send('Test Views - you viewed this page ' + req.session.views['/foo'] + ' times')
     })
     
-    app.get('/bar', function (req, res, next) {
+    app.get('/test/bar', function (req, res, next) {
         res.send('Test Views - you viewed this page ' + req.session.views['/bar'] + ' times')
     })
-
-    app.get('/api/current_session', (req, res) => {
-        res.send(req.session);
-    });
 
 };
